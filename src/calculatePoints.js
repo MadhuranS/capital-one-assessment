@@ -1,4 +1,3 @@
-const { get } = require("express/lib/request");
 
 function mapTransactions(transactions) { //Create map using input data
   const trxmap = new Map();
@@ -26,9 +25,9 @@ function getPoints(trxmap) { //calculate maximum points for the transactions
   }
 
   if (trxmap.get("sportcheck") >= 2500 && trxmap.get("tim_hortons" >=1000 && trxmap.get("subway") >= 1000)) { //APPLY RULE 4
-    const numApplications = Math.min(Math.floor(trxmap.get("sportcheck")/1000), Math.floor(trxmap.get("tim_hortons")/1000), Math.floor(trxmap.get("subway")/1000))
+    const numApplications = Math.min(Math.floor(trxmap.get("sportcheck")/2500), Math.floor(trxmap.get("tim_hortons")/1000), Math.floor(trxmap.get("subway")/1000))
     points += 150 * numApplications
-    trxmap.set("sportcheck", trxmap.get("sportcheck") - 1000*numApplications)
+    trxmap.set("sportcheck", trxmap.get("sportcheck") - 2500*numApplications)
     trxmap.set("tim_hortons", trxmap.get("tim_hortons") - 1000*numApplications)
     trxmap.set("subway", trxmap.get("subway") - 1000*numApplications)
   }
@@ -40,7 +39,6 @@ function getPoints(trxmap) { //calculate maximum points for the transactions
     trxmap.set("tim_hortons", trxmap.get("tim_hortons") - 2500*numApplications)
   }
 
-
   if (trxmap.get("sportcheck") >= 2000) { //APPLY RULE 6
     const numApplications = Math.floor(trxmap.get("sportcheck")/2000)
     points += 75 * numApplications
@@ -48,14 +46,13 @@ function getPoints(trxmap) { //calculate maximum points for the transactions
   }
 
   //It is impossible for rule 3 and rule 5 to apply since the above rules would eliminate necessary conditions
-
-  for (const amount of trxmap.values()) { //APPLY RULE 7
+  
+  for (const [key,amount] of trxmap.entries()) { //APPLY RULE 7
     const numApplications = Math.floor(amount/100)
     points += 1 * numApplications
+    trxmap.set(key, trxmap.get(key) - 100*numApplications)
   }
   return points
-
-
 }
 
 module.exports = mapTransactions;
