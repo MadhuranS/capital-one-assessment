@@ -26,6 +26,6 @@ The main code for the solution can be found in `src/calculatePoints.js`. The tes
 I assumed the input will only contain transactions for a specific month.
 
 1. Once the input is provided, I create a map from these transactions with the store name as the key and the amount spent as the value. 
-2. I created a hierarchy of rules from the most valuable to the least valuable rules. This hierarchy was created by deteremining the rules which provide the most points per sportcheck dollar since sportcheck dollars are required for every rule and is therefore the limiting factor. There are some other factors involved as well that I can speak about during the interview. Comment code in the `src/calculatePoints.js` indicates the rule hierarchy.
+2. I created a hierarchy of rules from the most valuable to the least valuable rules. This hierarchy was created by deteremining the rules which provide the most points per sportcheck dollar since sportcheck dollars are required for every rule and is therefore the limiting factor. There are some other factors involved as well that I can speak about during the interview. Comment code in the `src/calculatePoints.js` file indicates the rule hierarchy.
 3. Once the first 6 rules are used, I then use the last rule to calculate the remaining points from the remaining dollars. 
 4. The maximum dollar amount is returned. 
